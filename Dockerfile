@@ -1,4 +1,9 @@
 FROM webdevops/php-nginx:7.4
+FROM node
+
+ARG RAILWAY_ENVIRONMENT
+ENV RAILWAY_ENVIRONMENT=$RAILWAY_ENVIRONMENT
+
 COPY . /app
 WORKDIR /app
 RUN [ "sh", "-c", "curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer" ]
