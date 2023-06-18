@@ -16,9 +16,8 @@ RUN set -xe \
     && composer install -vvv \
     && chmod +x /start.sh \
     && chown -R application:application /dujiaoka/ \
-    && chmod -R 0755 /dujiaoka/ \
-    && mv /dujiaoka/storage /dujiaoka/storage_bak \
+    && chmod -R 755 /dujiaoka/ \
     && sed -i "s?\$proxies;?\$proxies=\'\*\*\';?" /dujiaoka/app/Http/Middleware/TrustProxies.php \
-    && rm -rf /root/.composer/cache/ /tmp/*
+
 
 CMD /start.sh
