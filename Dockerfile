@@ -1,4 +1,8 @@
-FROM webdevops/php-nginx:7.4
+FROM webdevops/php-nginx:7.4-alpine
+LABEL maintainer="qmmcloud@gmail.com"
+
+ENV INSTALL=true
+
 COPY . /dujiaoka
 WORKDIR /dujiaoka
 
