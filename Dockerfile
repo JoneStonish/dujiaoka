@@ -3,11 +3,13 @@ LABEL maintainer="sudo@dov.moe"
 
 ENV INSTALL=true
 
+COPY . /dujiaoka
+
 WORKDIR /dujiaoka
 
-COPY dujiaoka/ /dujiaoka
 COPY ./default.conf /opt/docker/etc/nginx/vhost.conf
 COPY ./dujiao.conf /opt/docker/etc/supervisor.d/
+
 COPY start.sh /
 
 RUN set -xe \
