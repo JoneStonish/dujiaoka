@@ -1,14 +1,10 @@
 #!/bin/sh
 
 if [ -f "/dujiaoka/.env" ]; then
-    if [ ! -d "./storage/app" ]; then
-        mv -n storage_bak/* storage/
-    fi
+   
     if [ "$INSTALL" != "true" ]; then
         echo "ok" > install.lock
     fi
-
-    bash /dujiaoka/start-hook.sh
 
     chmod -R 777 storage
 
