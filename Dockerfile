@@ -1,6 +1,7 @@
-FROM webdevops/php-nginx:7.4
-COPY . /app
-WORKDIR /app
-RUN [ "sh", "-c", "composer install --ignore-platform-reqs" ]
-RUN [ "sh", "-c", "chmod -R 777 /app" ]
-EXPOSE 80
+FROM jiangjuhong/dujiaoka
+
+ENV WEB_DOCUMENT_ROOT /app/public
+
+EXPOSE 80 9000
+
+CMD ["nginx", "-g", "daemon off;"]
