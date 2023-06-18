@@ -3,6 +3,4 @@ COPY . /app
 WORKDIR /app
 RUN [ "sh", "-c", "composer install --ignore-platform-reqs" ]
 RUN [ "sh", "-c", "chmod -R 777 /app" ]
-RUN [ "sh", "-c", "chown -R nginx:nginx /app" ]
-RUN [ "sh", "-c", "chown -R application:application /app" ]
 EXPOSE 80
