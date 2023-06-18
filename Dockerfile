@@ -1,22 +1,22 @@
 FROM webdevops/php-nginx:7.4-alpine
-LABEL maintainer="qmmcloud@gmail.com"
+LABEL maintainer="sudo@dov.moe"
 
 ENV INSTALL=true
 
-COPY . /dujiaoka
 WORKDIR /dujiaoka
 
-#COPY ./default.conf /opt/docker/etc/nginx/vhost.conf
-#COPY ./dujiao.conf /opt/docker/etc/supervisor.d/
+COPY dujiaoka/ /dujiaoka
+COPY ./conf/default.conf /opt/docker/etc/nginx/vhost.conf
+COPY ./conf/dujiao.conf /opt/docker/etc/supervisor.d/
+COPY start.sh /
 
-RUN [ "sh", "-c", "cat /opt/docker/etc/nginx/vhost.conf" ]
-RUN [ "sh", "-c", "cat /opt/docker/etc/supervisor.d/dujiao.conf" ]
+RUN set -xe \
+    && composer install -vvv \
+    && chmod +x /start.sh \
+    && chown -R application:application /dujiaoka/ \
+    && chmod -R 0755 /dujiaoka/ \
+    && mv /dujiaoka/storage /dujiaoka/storage_bak \
+    && sed -i "s?\$proxies;?\$proxies=\'\*\*\';?" /dujiaoka/app/Http/Middleware/TrustProxies.php \
+    && rm -rf /root/.composer/cache/ /tmp/*
 
-
-RUN [ "sh", "-c", "composer install --ignore-platform-reqs" ]
-RUN [ "sh", "-c", "chmod -R 777 /dujiaoka" ]
-
-RUN [ "sh", "-c", "cat /opt/docker/etc/nginx/vhost.conf" ]
-RUN [ "sh", "-c", "cat /opt/docker/etc/supervisor.d/dujiao.conf" ]
-
-EXPOSE 80
+CMD /start.sh
