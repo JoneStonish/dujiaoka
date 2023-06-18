@@ -17,7 +17,7 @@ RUN set -xe \
     && chmod +x /start.sh \
     && chown -R application:application /dujiaoka/ \
     && chmod -R 755 /dujiaoka/ \
-    && sed -i "s?\$proxies;?\$proxies=\'\*\*\';?" /dujiaoka/app/Http/Middleware/TrustProxies.php \
+    && sed -i "s?\$proxies;?\$proxies=\'\*\*\';?" /dujiaoka/app/Http/Middleware/TrustProxies.php 
 
 
 CMD /start.sh
